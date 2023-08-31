@@ -11,7 +11,8 @@ import com.example.sample20l10clickablelistelement.databinding.ItemLoadingBindin
 import com.example.sample20l10clickablelistelement.databinding.ItemUserBinding
 
 class UserAdapter(
-    context: Context
+    context: Context,
+    private val onUserClicked: (User) -> Unit
 ) : ListAdapter<PagingData<User>, RecyclerView.ViewHolder>(DIFF_UTIL) {
 
     private val layoutInflater = LayoutInflater.from(context)
@@ -27,7 +28,8 @@ class UserAdapter(
         return when (viewType) {
             TYPE_USER -> {
                 UserViewHolder(
-                    binding = ItemUserBinding.inflate(layoutInflater, parent, false)
+                    binding = ItemUserBinding.inflate(layoutInflater, parent, false),
+                    onUserClicked = onUserClicked
                 )
             }
             TYPE_LOADING -> {
@@ -76,10 +78,12 @@ class UserAdapter(
 }
 
 class UserViewHolder(
-    private val binding: ItemUserBinding
+    private val binding: ItemUserBinding,
+    private val onUserClicked: (User) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: User) {
         with(binding) {
+            root.setOnClickListener { onUserClicked(item) }
             imageAvatar.load(item.avatarUrl)
             userName.text =item.login
         }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.sample20l10clickablelistelement.databinding.FragmentFirstBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,7 +22,14 @@ class FirstFragment : Fragment() {
     private val binding get() = requireNotNull(_binding)
     private var currentRequest: Call<List<User>>? = null
     private val currentUsers = mutableListOf<User>()
-    private val adapter by lazy { UserAdapter(requireContext()) }
+    private val adapter by lazy {
+        UserAdapter(
+            requireContext(),
+            onUserClicked = {
+                findNavController().navigate(FirstFragmentDirections.toSecondFragment(it.login))
+            }
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

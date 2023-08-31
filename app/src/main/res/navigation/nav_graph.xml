@@ -8,6 +8,20 @@
     <fragment
         android:id="@+id/first_fragment"
         android:name="com.example.sample20l10clickablelistelement.FirstFragment"
-        tools:layout="@layout/fragment_first"/>
+        tools:layout="@layout/fragment_first">
 
+        <action
+            android:id="@+id/to_second_fragment"
+            app:destination="@id/second_fragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/second_fragment"
+        android:name="com.example.sample20l10clickablelistelement.SecondFragment"
+        tools:layout="@layout/fragment_second">
+
+        <argument
+            android:name="login"
+            app:argType="string"/>
+    </fragment>
 </navigation>
